@@ -1,4 +1,4 @@
-package go_errors
+package errors
 
 /**
   @author : Jerbe - The porter from Earth
@@ -32,7 +32,7 @@ type Error struct {
 // Is 判断target是否是同一个,比如e被克隆出d来就能用Is来判断两个是否相等
 func (e *Error) Is(target error) bool {
 	if t, ok := target.(*Error); ok {
-		return t.id == e.id && t.message == e.message
+		return t.id == e.id
 	}
 	return false
 }
@@ -40,12 +40,7 @@ func (e *Error) Is(target error) bool {
 // Error 错误的文本
 func (e *Error) Error() string {
 	if e.cause != nil {
-		msg := e.message
-		if msg == "" {
-			return e.cause.Error()
-		}
-		msg += " <= " + e.cause.Error()
-		return msg
+		return e.cause.Error()
 	}
 	return e.message
 }

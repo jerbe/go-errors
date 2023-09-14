@@ -1,3 +1,3 @@
-module github.com/jerbe/gerrors
+module github.com/jerbe/go-errors
 
 go 1.14

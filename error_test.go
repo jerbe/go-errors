@@ -1,6 +1,7 @@
-package go_errors
+package errors
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 )
@@ -14,35 +15,20 @@ import (
 var T = New("this is test")
 
 func TestWrap(t *testing.T) {
-	e := T.Wrap(New("aa"))
+	var e error
+	e = errors.New("Error One")
+	e = T.Wrap(e)
 	e = e.(*Error).Wrap(e)
+	e = Wrap(e)
+	e = Wrap(e)
+	e = Wrap(e)
+	fmt.Printf("%+v\n", e)
+	fmt.Printf("%s\n", e.Error())
 
-	e = Wrap(e)
-	e = Wrap(e)
-	e = Wrap(e)
-
-	e2 := New("c")
+	e2 := New("Error Two")
 	e = e.(*Error).Wrap(e2)
 	e = Wrap(e)
 	e = Wrap(e)
 	fmt.Printf("%+v", e)
 	fmt.Printf("%s\n", e.Error())
-
-	A(e)
-}
-
-func A(err error) {
-	B(err)
-}
-
-func B(err error) {
-	C(err)
-}
-
-func C(err error) {
-	D(err)
-}
-
-func D(err error) {
-	panic(err)
 }

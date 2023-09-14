@@ -1,4 +1,4 @@
-package go_errors
+package errors
 
 import (
 	"errors"
